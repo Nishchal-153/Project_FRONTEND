@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding : 20px;
+      background-image: url(login\ background.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: 20px;
+      
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+  
+}
+    label {
+      margin-top: 20px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      padding: 5px;
+      margin-top: 5px;
+    }
+
+    
+
+    button[type="submit"] {
+      padding: 10px;
+      margin-top: 10px;
+      width: 150px;
+      margin-left: 70px;
+    }
+
+    button:hover {
+      background-color: #459ba0;
+      border-radius: 40%;
+      width: 150px;
+      transition-duration: 2s;
+    }
+
+    .signup-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .signup-button a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #377077;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-button a:hover {
+      background-color: #9e91d4;
+    }
+  </style>
+</head>
+<body>
+  <h1><b>Sign Up</b></h1>
+  <form action="home.html">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="abc@email.com" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="min 8 latters 1 capital ,and 1 sign required" required>
+
+    <button type="submit">Sign Up</button>
+  </form>
+  <p class="signup-button">Don't have an account? <a href="login.html">Log in </a></p>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="app2.js"></script>
+</body>
+</html>  
