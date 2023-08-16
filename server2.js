@@ -1,4 +1,79 @@
-<!DOCTYPE html>
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+
+const app = express();
+app.use(express.static(__dirname));
+app.use(bodyParser.json());
+app.use(cors());
+
+// Connecting to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/userData', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Connection error', err));
+
+const userDataSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
+});
+
+const User = mongoose.model('User', userDataSchema);
+
+// CRUD Endpoints
+app.get('/users', (req, res) => {
+    User.find({}, (err, users) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json(users);
+        }
+    });
+});
+
+app.post('/users', (req, res) => {
+    const newUser = new User(req.body);
+    newUser.save((err, user) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json(user);
+        }
+    });
+});
+
+app.put('/users/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json({ success: true });
+        }
+    });
+});
+
+app.delete('/users/:id', (req, res) => {
+    User.findByIdAndDelete(req.params.id, (err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json({ success: true });
+        }
+    });
+});
+
+// Endpoint to serve the HTML
+app.get('/', (req, res) => {
+    res.send(`
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -95,4 +170,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="app2.js"></script>
 </body>
-</html>  
+</html>
+    `);
+});
+
+app.listen(27017, () => console.log('Server running on port 27017'));
